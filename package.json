@@ -1,5 +1,5 @@
 {
-    "name": "holi-overlay",
+    "name": "@devcodehub99/holi-overlay",
     "version": "1.0.0",
     "type": "module",
     "description": "🎨 A stunning Holi festival overlay with colorful water balloons, pichkaari streams, and ambient color effects. Drop-in integration for any website.",
@@ -52,7 +52,10 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/DevCodeHub99/holi-overlay.git"
+        "url": "https://github.com/DevCodeHub99/holi-overlay.git"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
     },
     "homepage": "https://github.com/DevCodeHub99/holi-overlay#readme",
     "bugs": {
