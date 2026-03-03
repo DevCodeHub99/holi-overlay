@@ -1,0 +1,62 @@
+{
+    "name": "holi-overlay",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "🎨 A stunning Holi festival overlay with colorful water balloons, pichkaari streams, and ambient color effects. Drop-in integration for any website.",
+    "main": "dist/holi-overlay.cjs",
+    "module": "dist/holi-overlay.js",
+    "types": "dist/holi-overlay.d.ts",
+    "browser": "dist/holi-overlay.umd.js",
+    "exports": {
+        ".": {
+            "import": "./dist/holi-overlay.js",
+            "require": "./dist/holi-overlay.cjs",
+            "types": "./dist/holi-overlay.d.ts",
+            "default": "./dist/holi-overlay.js"
+        },
+        "./react": {
+            "import": "./src/react.jsx",
+            "types": "./dist/holi-overlay.d.ts"
+        },
+        "./umd": "./dist/holi-overlay.umd.js",
+        "./dist/*": "./dist/*",
+        "./src/*": "./src/*"
+    },
+    "sideEffects": false,
+    "files": [
+        "dist",
+        "src",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "node build.js",
+        "dev": "npx -y http-server . -p 3000 -o /demo.html",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "holi",
+        "overlay",
+        "festival",
+        "animation",
+        "canvas",
+        "water-balloon",
+        "celebration",
+        "confetti",
+        "effects",
+        "widget",
+        "esm",
+        "esmodule"
+    ],
+    "author": "Vikas",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DevCodeHub99/holi-overlay.git"
+    },
+    "homepage": "https://github.com/DevCodeHub99/holi-overlay#readme",
+    "bugs": {
+        "url": "https://github.com/DevCodeHub99/holi-overlay/issues"
+    },
+    "devDependencies": {}
+}

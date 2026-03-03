@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holi Overlay — Festive Celebration Effects for Any Website</title>
+    <meta name="description"
+        content="Add stunning Holi festival effects to any website with a single line of code. Colorful water balloons, pichkaari streams, and ambient gradients.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(255, 105, 180, 0.3);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8a8a9a;
+            --text-muted: #5a5a6a;
+            --accent-pink: #ff69b4;
+            --accent-yellow: #ffdf00;
+            --accent-green: #32cd32;
+            --accent-blue: #00bfff;
+            --accent-violet: #9400d3;
+            --accent-orange: #ff8c00;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Fira Code', 'Cascadia Code', monospace;
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── Ambient Background ─── */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .ambient-bg .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .ambient-bg .orb:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-pink);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .ambient-bg .orb:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            background: var(--accent-blue);
+            top: 50%;
+            right: -150px;
+            animation-delay: -7s;
+        }
+
+        .ambient-bg .orb:nth-child(3) {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-violet);
+            bottom: -100px;
+            left: 30%;
+            animation-delay: -14s;
+        }
+
+        .ambient-bg .orb:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            background: var(--accent-yellow);
+            top: 30%;
+            left: 50%;
+            animation-delay: -5s;
+            opacity: 0.08;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, -30px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-30px, 50px) scale(0.9);
+            }
+        }
+
+        /* ─── Container ─── */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ─── Header / Nav ─── */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+        }
+
+        .nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-logo .emoji {
+            font-size: 1.6rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-violet));
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600 !important;
+            transition: transform 0.2s, box-shadow 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding: 120px 0 80px;
+        }
+
+        .hero-content {
+            width: 100%;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(255, 105, 180, 0.08);
+            border: 1px solid rgba(255, 105, 180, 0.2);
+            color: var(--accent-pink);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.5);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-yellow), var(--accent-green), var(--accent-blue), var(--accent-violet));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-violet));
+            color: white;
+            box-shadow: 0 4px 24px rgba(255, 105, 180, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.35);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── Code Snippet (Hero) ─── */
+        .hero-code {
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .code-block {
+            position: relative;
+            background: rgba(15, 15, 25, 0.8);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            overflow: hidden;
+            text-align: left;
+            backdrop-filter: blur(10px);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .code-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .code-dots span:nth-child(1) {
+            background: #ff5f56;
+        }
+
+        .code-dots span:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .code-dots span:nth-child(3) {
+            background: #27c93f;
+        }
+
+        .code-lang {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .copy-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .copy-btn.copied {
+            background: rgba(39, 201, 63, 0.15);
+            border-color: rgba(39, 201, 63, 0.3);
+            color: #27c93f;
+        }
+
+        .code-body {
+            padding: 20px 24px;
+            overflow-x: auto;
+        }
+
+        .code-body pre {
+            margin: 0;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .code-body .comment {
+            color: #5a5a6a;
+        }
+
+        .code-body .tag {
+            color: var(--accent-pink);
+        }
+
+        .code-body .attr {
+            color: var(--accent-yellow);
+        }
+
+        .code-body .string {
+            color: var(--accent-green);
+        }
+
+        .code-body .keyword {
+            color: var(--accent-blue);
+        }
+
+        .code-body .fn {
+            color: var(--accent-violet);
+        }
+
+        /* ─── Sections ─── */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .overline {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-pink);
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ─── Feature Cards ─── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ─── Integration Methods ─── */
+        .integration-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 32px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 4px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: rgba(255, 105, 180, 0.12);
+            color: var(--accent-pink);
+        }
+
+        .tab-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        /* ─── Options Table ─── */
+        .options-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .options-table thead th {
+            text-align: left;
+            padding: 14px 20px;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .options-table tbody td {
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+        }
+
+        .options-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .options-table code {
+            font-family: var(--font-mono);
+            background: rgba(255, 105, 180, 0.08);
+            color: var(--accent-pink);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .options-table .type {
+            font-family: var(--font-mono);
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+        }
+
+        .options-table .default {
+            font-family: var(--font-mono);
+            color: var(--accent-yellow);
+            font-size: 0.85rem;
+        }
+
+        /* ─── Demo Controls ─── */
+        .demo-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .demo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .demo-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .demo-btn.active {
+            background: rgba(255, 105, 180, 0.15);
+            border-color: var(--accent-pink);
+            color: var(--accent-pink);
+        }
+
+        /* ─── Footer ─── */
+        .footer {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer .heart {
+            color: var(--accent-pink);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .integration-tabs {
+                flex-wrap: wrap;
+            }
+
+            .options-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        /* ─── Scroll Animations ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <a href="#" class="nav-logo">
+                <span class="emoji">🎨</span>
+                <span>Holi Overlay</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#integration">Integration</a>
+                <a href="#options">Options</a>
+                <a href="#demo">Demo</a>
+                <a href="https://github.com" class="nav-cta" target="_blank">GitHub ↗</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    v1.0.0 — Production Ready
+                </div>
+
+                <h1>
+                    Add <span class="gradient-text">Holi Festival</span><br>
+                    Magic to Any Website
+                </h1>
+
+                <p>
+                    A stunning, zero-dependency overlay with colorful water balloons,
+                    pichkaari streams, and ambient effects. One line of code. Any website.
+                </p>
+
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="toggleDemo" onclick="toggleOverlay()">
+                        🎨 Try Live Demo
+                    </button>
+                    <a class="btn btn-secondary" href="#integration">
+                        📖 Integration Guide
+                    </a>
+                </div>
+
+                <div class="hero-code">
+                    <div class="code-block">
+                        <div class="code-header">
+                            <div class="code-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="code-lang">HTML</span>
+                            <button class="copy-btn" onclick="copyCode(this, 'hero-snippet')">
+                                📋 Copy
+                            </button>
+                        </div>
+                        <div class="code-body">
+                            <pre
+                                id="hero-snippet"><span class="comment">&lt;!-- Add before &lt;/body&gt; — That's it! --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/holi-overlay@latest/dist/holi-overlay.umd.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;script&gt;</span><span class="fn">HoliOverlay</span>.<span class="keyword">start</span>();<span class="tag">&lt;/script&gt;</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="overline">Features</span>
+                <h2>Built for Production</h2>
+                <p>Industry best practices baked in. Zero dependencies. Framework agnostic.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 105, 180, 0.1);">🎈</div>
+                    <h3>Water Balloons</h3>
+                    <p>Colorful balloons fly in from all directions and burst with realistic splash physics and particle
+                        effects.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(0, 191, 255, 0.1);">💦</div>
+                    <h3>Pichkaari Streams</h3>
+                    <p>Water gun streams shoot across the screen with thick, dense particle trails — just like a real
+                        Holi celebration.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(148, 0, 211, 0.1);">🌈</div>
+                    <h3>Ambient Gradients</h3>
+                    <p>Breathing, pulsing color gradients in every corner create an immersive festive atmosphere.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 223, 0, 0.1);">⚡</div>
+                    <h3>Zero Dependencies</h3>
+                    <p>Pure vanilla JavaScript. No frameworks, no build tools, no bloat. Just drop it in and go.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(50, 205, 50, 0.1);">📱</div>
+                    <h3>Fully Responsive</h3>
+                    <p>Works perfectly on mobile, tablet, and desktop. Automatically adapts to any screen size.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon" style="background: rgba(255, 140, 0, 0.1);">🔧</div>
+                    <h3>Highly Configurable</h3>
+                    <p>Custom colors, density, opacity, duration, z-index, and more. Full control via options or data
+                        attributes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration -->
+    <section id="integration">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="overline">Integration</span>
+                <h2>Works Everywhere</h2>
+                <p>Choose the integration method that fits your stack.</p>
+            </div>
+
+            <div class="integration-tabs reveal">
+                <button class="tab-btn active" onclick="switchTab('cdn')">CDN / Script</button>
+                <button class="tab-btn" onclick="switchTab('npm')">npm</button>
+                <button class="tab-btn" onclick="switchTab('react')">React</button>
+                <button class="tab-btn" onclick="switchTab('nextjs')">Next.js</button>
+                <button class="tab-btn" onclick="switchTab('wordpress')">WordPress</button>
+            </div>
+
+            <!-- CDN Tab -->
+            <div class="tab-content active" id="tab-cdn">
+                <div class="code-block reveal">
+                    <div class="code-header">
+                        <div class="code-dots"><span></span><span></span><span></span></div>
+                        <span class="code-lang">HTML — CDN (Recommended)</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'cdn-code')">📋 Copy</button>
+                    </div>
+                    <div class="code-body">
+                        <pre id="cdn-code"><span class="comment">&lt;!-- Option 1: Auto-start with data attributes --&gt;</span>
+<span class="tag">&lt;script</span>
+  <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/holi-overlay@latest/dist/holi-overlay.umd.js"</span>
+  <span class="attr">data-autostart</span>
+  <span class="attr">data-max-balloons</span>=<span class="string">"10"</span>
+  <span class="attr">data-duration</span>=<span class="string">"30000"</span>
+<span class="tag">&gt;&lt;/script&gt;</span>
+
+<span class="comment">&lt;!-- Option 2: Manual control --&gt;</span>
+<span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/holi-overlay@latest/dist/holi-overlay.umd.js"</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;script&gt;</span>
+  <span class="comment">// Start with custom options</span>
+  <span class="fn">HoliOverlay</span>.<span class="keyword">start</span>({
+    <span class="attr">maxBalloons</span>: <span class="string">12</span>,
+    <span class="attr">maxPichkaaris</span>: <span class="string">3</span>,
+    <span class="attr">opacity</span>: <span class="string">0.9</span>,
+    <span class="attr">duration</span>: <span class="string">60000</span> <span class="comment">// Stop after 60 seconds</span>
+  });
+
+  <span class="comment">// Later, stop it</span>
+  <span class="fn">HoliOverlay</span>.<span class="keyword">stop</span>();
+<span class="tag">&lt;/script&gt;</span></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- npm Tab -->
+            <div class="tab-content" id="tab-npm">
+                <div class="code-block reveal">
+                    <div class="code-header">
+                        <div class="code-dots"><span></span><span></span><span></span></div>
+                        <span class="code-lang">Terminal + JavaScript</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'npm-code')">📋 Copy</button>
+                    </div>
+                    <div class="code-body">
+                        <pre id="npm-code"><span class="comment"># Install</span>
+<span class="keyword">npm</span> install holi-overlay
+
+<span class="comment">// In your JavaScript</span>
+<span class="keyword">import</span> <span class="fn">HoliOverlay</span> <span class="keyword">from</span> <span class="string">'holi-overlay'</span>;
+
+<span class="comment">// Start the overlay</span>
+<span class="fn">HoliOverlay</span>.<span class="keyword">start</span>({
+  <span class="attr">maxBalloons</span>: <span class="string">15</span>,
+  <span class="attr">opacity</span>: <span class="string">0.95</span>
+});
+
+<span class="comment">// Toggle on/off</span>
+<span class="fn">HoliOverlay</span>.<span class="keyword">toggle</span>();
+
+<span class="comment">// Check status</span>
+<span class="keyword">if</span> (<span class="fn">HoliOverlay</span>.<span class="keyword">isRunning</span>()) {
+  console.<span class="keyword">log</span>(<span class="string">'🎨 Holi mode active!'</span>);
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- React Tab -->
+            <div class="tab-content" id="tab-react">
+                <div class="code-block reveal">
+                    <div class="code-header">
+                        <div class="code-dots"><span></span><span></span><span></span></div>
+                        <span class="code-lang">React Component</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'react-code')">📋 Copy</button>
+                    </div>
+                    <div class="code-body">
+                        <pre id="react-code"><span class="keyword">import</span> { useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> <span class="fn">HoliOverlay</span> <span class="keyword">from</span> <span class="string">'holi-overlay'</span>;
+
+<span class="keyword">function</span> <span class="fn">App</span>() {
+  useEffect(() => {
+    <span class="keyword">const</span> overlay = <span class="fn">HoliOverlay</span>.<span class="keyword">start</span>({
+      <span class="attr">maxBalloons</span>: <span class="string">12</span>,
+      <span class="attr">duration</span>: <span class="string">30000</span>
+    });
+
+    <span class="keyword">return</span> () => overlay.<span class="keyword">stop</span>();
+  }, []);
+
+  <span class="keyword">return</span> <span class="tag">&lt;div&gt;</span>Your App Content<span class="tag">&lt;/div&gt;</span>;
+}
+
+<span class="comment">// Or use as a controlled component:</span>
+<span class="keyword">function</span> <span class="fn">FestiveApp</span>({ <span class="attr">showHoli</span> }) {
+  useEffect(() => {
+    <span class="keyword">if</span> (showHoli) {
+      <span class="fn">HoliOverlay</span>.<span class="keyword">start</span>();
+    } <span class="keyword">else</span> {
+      <span class="fn">HoliOverlay</span>.<span class="keyword">stop</span>();
+    }
+    <span class="keyword">return</span> () => <span class="fn">HoliOverlay</span>.<span class="keyword">stop</span>();
+  }, [showHoli]);
+
+  <span class="keyword">return</span> <span class="tag">&lt;div&gt;</span>...<span class="tag">&lt;/div&gt;</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next.js Tab -->
+            <div class="tab-content" id="tab-nextjs">
+                <div class="code-block reveal">
+                    <div class="code-header">
+                        <div class="code-dots"><span></span><span></span><span></span></div>
+                        <span class="code-lang">Next.js (App Router)</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'nextjs-code')">📋 Copy</button>
+                    </div>
+                    <div class="code-body">
+                        <pre id="nextjs-code"><span class="comment">// components/HoliFestive.tsx</span>
+<span class="string">'use client'</span>;
+
+<span class="keyword">import</span> { useEffect } <span class="keyword">from</span> <span class="string">'react'</span>;
+<span class="keyword">import</span> <span class="fn">HoliOverlay</span> <span class="keyword">from</span> <span class="string">'holi-overlay'</span>;
+
+<span class="keyword">export default function</span> <span class="fn">HoliFestive</span>() {
+  useEffect(() => {
+    <span class="keyword">const</span> overlay = <span class="fn">HoliOverlay</span>.<span class="keyword">start</span>({
+      <span class="attr">zIndex</span>: <span class="string">99999</span>,
+      <span class="attr">maxBalloons</span>: <span class="string">10</span>,
+      <span class="attr">maxPichkaaris</span>: <span class="string">3</span>
+    });
+
+    <span class="keyword">return</span> () => overlay.<span class="keyword">stop</span>();
+  }, []);
+
+  <span class="keyword">return null</span>;
+}
+
+<span class="comment">// In your layout.tsx or page.tsx:</span>
+<span class="keyword">import</span> <span class="fn">HoliFestive</span> <span class="keyword">from</span> <span class="string">'./components/HoliFestive'</span>;
+
+<span class="keyword">export default function</span> <span class="fn">Layout</span>({ children }) {
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      {children}
+      <span class="tag">&lt;</span><span class="fn">HoliFestive</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WordPress Tab -->
+            <div class="tab-content" id="tab-wordpress">
+                <div class="code-block reveal">
+                    <div class="code-header">
+                        <div class="code-dots"><span></span><span></span><span></span></div>
+                        <span class="code-lang">WordPress — functions.php</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'wp-code')">📋 Copy</button>
+                    </div>
+                    <div class="code-body">
+                        <pre id="wp-code"><span class="comment">// Add to your theme's functions.php</span>
+<span class="keyword">function</span> <span class="fn">add_holi_overlay</span>() {
+  <span class="fn">wp_enqueue_script</span>(
+    <span class="string">'holi-overlay'</span>,
+    <span class="string">'https://cdn.jsdelivr.net/npm/holi-overlay@latest/dist/holi-overlay.umd.js'</span>,
+    <span class="keyword">array</span>(),
+    <span class="string">'1.0.0'</span>,
+    <span class="keyword">true</span>
+  );
+
+  <span class="fn">wp_add_inline_script</span>(
+    <span class="string">'holi-overlay'</span>,
+    <span class="string">'HoliOverlay.start({ maxBalloons: 10, duration: 60000 });'</span>
+  );
+}
+<span class="fn">add_action</span>(<span class="string">'wp_enqueue_scripts'</span>, <span class="string">'add_holi_overlay'</span>);
+
+<span class="comment">// Or just paste this in your theme's footer.php before &lt;/body&gt;:</span>
+<span class="tag">&lt;script</span>
+  <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/holi-overlay@latest/dist/holi-overlay.umd.js"</span>
+  <span class="attr">data-autostart</span>
+  <span class="attr">data-duration</span>=<span class="string">"60000"</span>
+<span class="tag">&gt;&lt;/script&gt;</span></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Options / API -->
+    <section id="options">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="overline">API Reference</span>
+                <h2>Configuration Options</h2>
+                <p>Fine-tune every aspect of the overlay to match your site.</p>
+            </div>
+
+            <div class="code-block reveal" style="overflow-x: auto;">
+                <table class="options-table">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>zIndex</code></td>
+                            <td><span class="type">number</span></td>
+                            <td><span class="default">99999</span></td>
+                            <td>CSS z-index of the canvas overlay</td>
+                        </tr>
+                        <tr>
+                            <td><code>opacity</code></td>
+                            <td><span class="type">number</span></td>
+                            <td><span class="default">0.95</span></td>
+                            <td>Overall opacity of the overlay (0 – 1)</td>
+                        </tr>
+                        <tr>
+                            <td><code>maxBalloons</code></td>
+                            <td><span class="type">number</span></td>
+                            <td><span class="default">15</span></td>
+                            <td>Maximum simultaneous water balloons on screen</td>
+                        </tr>
+                        <tr>
+                            <td><code>maxPichkaaris</code></td>
+                            <td><span class="type">number</span></td>
+                            <td><span class="default">4</span></td>
+                            <td>Maximum simultaneous water gun streams</td>
+                        </tr>
+                        <tr>
+                            <td><code>colors</code></td>
+                            <td><span class="type">Array&lt;{r,g,b}&gt;</span></td>
+                            <td><span class="default">9 Holi colors</span></td>
+                            <td>Custom color palette as RGB objects</td>
+                        </tr>
+                        <tr>
+                            <td><code>duration</code></td>
+                            <td><span class="type">number</span></td>
+                            <td><span class="default">0</span></td>
+                            <td>Auto-stop after N ms (0 = infinite)</td>
+                        </tr>
+                        <tr>
+                            <td><code>container</code></td>
+                            <td><span class="type">string</span></td>
+                            <td><span class="default">body</span></td>
+                            <td>CSS selector of the container element</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <div class="section-header reveal">
+                    <h2 style="font-size: 1.6rem;">Methods</h2>
+                </div>
+                <div class="code-block reveal">
+                    <div class="code-body">
+                        <pre><span class="fn">HoliOverlay</span>.<span class="keyword">start</span>(options?)    <span class="comment">// Start the overlay, returns controller</span>
+<span class="fn">HoliOverlay</span>.<span class="keyword">stop</span>()             <span class="comment">// Stop and remove the overlay</span>
+<span class="fn">HoliOverlay</span>.<span class="keyword">toggle</span>(options?)   <span class="comment">// Toggle on/off</span>
+<span class="fn">HoliOverlay</span>.<span class="keyword">isRunning</span>()       <span class="comment">// Returns true if active</span>
+<span class="fn">HoliOverlay</span>.<span class="keyword">create</span>(options?)   <span class="comment">// Create controller without starting</span>
+<span class="fn">HoliOverlay</span>.<span class="attr">version</span>           <span class="comment">// Library version string</span>
+<span class="fn">HoliOverlay</span>.<span class="attr">defaultColors</span>     <span class="comment">// Access default color palette</span></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo -->
+    <section id="demo">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="overline">Interactive Demo</span>
+                <h2>Try It Now</h2>
+                <p>Click the buttons below to control the overlay in real-time.</p>
+            </div>
+
+            <div class="demo-controls reveal">
+                <button class="demo-btn" id="demoToggle" onclick="toggleOverlay()">
+                    🎨 Toggle Overlay
+                </button>
+                <button class="demo-btn" onclick="startWithPreset('subtle')">
+                    🌸 Subtle
+                </button>
+                <button class="demo-btn" onclick="startWithPreset('party')">
+                    🎉 Party Mode
+                </button>
+                <button class="demo-btn" onclick="startWithPreset('custom')">
+                    🎨 Custom Colors
+                </button>
+                <button class="demo-btn" onclick="stopOverlay()">
+                    ⏹ Stop
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Built with <span class="heart">♥</span> for the festive spirit</p>
+            <p style="margin-top: 8px;">🎨 <strong>holi-overlay</strong> v1.0.0 — MIT License</p>
+            <div class="footer-links">
+                <a href="#integration">Documentation</a>
+                <a href="https://github.com" target="_blank">GitHub</a>
+                <a href="https://www.npmjs.com" target="_blank">npm</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load the overlay library (UMD build for <script> tag usage) -->
+    <script src="dist/holi-overlay.umd.js"></script>
+
+    <script>
+        // ─── Demo Controls ───
+        function toggleOverlay() {
+            HoliOverlay.toggle();
+            updateToggleBtn();
+        }
+
+        function stopOverlay() {
+            HoliOverlay.stop();
+            updateToggleBtn();
+        }
+
+        function startWithPreset(preset) {
+            HoliOverlay.stop();
+            var opts = {};
+
+            switch (preset) {
+                case 'subtle':
+                    opts = { maxBalloons: 5, maxPichkaaris: 1, opacity: 0.5 };
+                    break;
+                case 'party':
+                    opts = { maxBalloons: 25, maxPichkaaris: 8, opacity: 1.0 };
+                    break;
+                case 'custom':
+                    opts = {
+                        maxBalloons: 12,
+                        maxPichkaaris: 3,
+                        colors: [
+                            { r: 255, g: 0, b: 100 },
+                            { r: 0, g: 200, b: 255 },
+                            { r: 255, g: 200, b: 0 },
+                            { r: 100, g: 255, b: 100 }
+                        ]
+                    };
+                    break;
+            }
+
+            HoliOverlay.start(opts);
+            updateToggleBtn();
+        }
+
+        function updateToggleBtn() {
+            var btn = document.getElementById('demoToggle');
+            var heroBtn = document.getElementById('toggleDemo');
+            if (HoliOverlay.isRunning()) {
+                btn.classList.add('active');
+                btn.innerHTML = '🎨 Overlay Active';
+                heroBtn.innerHTML = '⏹ Stop Demo';
+            } else {
+                btn.classList.remove('active');
+                btn.innerHTML = '🎨 Toggle Overlay';
+                heroBtn.innerHTML = '🎨 Try Live Demo';
+            }
+        }
+
+        // ─── Tab Switching ───
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(function (el) {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(function (el) {
+                el.classList.remove('active');
+            });
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            // Find the clicked button by matching tabId
+            var btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(function (b) {
+                if (b.textContent.toLowerCase().indexOf(tabId) !== -1 ||
+                    b.getAttribute('onclick').indexOf(tabId) !== -1) {
+                    b.classList.add('active');
+                }
+            });
+        }
+
+        // ─── Copy to Clipboard ───
+        function copyCode(btn, elementId) {
+            var el = document.getElementById(elementId);
+            var text = el.textContent || el.innerText;
+
+            navigator.clipboard.writeText(text).then(function () {
+                btn.classList.add('copied');
+                btn.innerHTML = '✅ Copied!';
+                setTimeout(function () {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '📋 Copy';
+                }, 2000);
+            });
+        }
+
+        // ─── Scroll Reveal ───
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(function (el) {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
